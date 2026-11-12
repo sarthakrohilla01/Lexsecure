@@ -58,6 +58,6 @@ Initial public release: case management, encrypted document storage with
 versioning, malware scanning, the custody ledger, semantic search, the audit
 trail and RBAC/ABAC access control.
 
-[Unreleased]: https://github.com/lexsecure/lexsecure/compare/v2.0.0...HEAD
-[2.0.0]: https://github.com/lexsecure/lexsecure/releases/tag/v2.0.0
-[1.0.0]: https://github.com/lexsecure/lexsecure/releases/tag/v1.0.0
+[Unreleased]: https://github.com/sarthakrohilla01/Lexsecure/compare/v2.0.0...HEAD
+[2.0.0]: https://github.com/sarthakrohilla01/Lexsecure/releases/tag/v2.0.0
+[1.0.0]: https://github.com/sarthakrohilla01/Lexsecure/releases/tag/v1.0.0

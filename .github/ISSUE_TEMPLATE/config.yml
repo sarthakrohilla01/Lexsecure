@@ -1,11 +1,11 @@
 blank_issues_enabled: false
 contact_links:
   - name: Security vulnerability
-    url: https://github.com/lexsecure/lexsecure/security/advisories/new
+    url: https://github.com/sarthakrohilla01/Lexsecure/security/advisories/new
     about: Report a vulnerability privately. Please do not open a public issue.
   - name: Question or help
-    url: https://github.com/lexsecure/lexsecure/discussions
+    url: https://github.com/sarthakrohilla01/Lexsecure/discussions
     about: Ask a question, or ask how something works.
   - name: Contribution policy
-    url: https://github.com/lexsecure/lexsecure/blob/main/CONTRIBUTING.md
+    url: https://github.com/sarthakrohilla01/Lexsecure/blob/main/CONTRIBUTING.md
     about: How to contribute back instead of forking.

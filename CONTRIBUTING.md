@@ -35,7 +35,7 @@ repository with visible history is part of the design, not just the licence.
 ### 1. Set up
 
 ```bash
-git clone https://github.com/lexsecure/lexsecure
+git clone https://github.com/sarthakrohilla01/Lexsecure
 cd lexsecure
 cd backend && python3 -m venv venv && venv/bin/pip install -r requirements.txt && cd ..
 cd frontend && npm install && cd ..

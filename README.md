@@ -7,7 +7,7 @@
 *Tamper-evident evidence custody, attribute-based access control, and a
 permission-aware AI assistant — in one deployable stack.*
 
-[![CI](https://github.com/lexsecure/lexsecure/actions/workflows/ci.yml/badge.svg)](https://github.com/lexsecure/lexsecure/actions/workflows/ci.yml)
+[![CI](https://github.com/sarthakrohilla01/Lexsecure/actions/workflows/ci.yml/badge.svg)](https://github.com/sarthakrohilla01/Lexsecure/actions/workflows/ci.yml)
 [![License](https://img.shields.io/badge/license-Business%20Source%201.1-blue.svg)](LICENSE)
 [![Python](https://img.shields.io/badge/python-3.11%20%7C%203.13-3776AB.svg)](backend/requirements.txt)
 [![Node](https://img.shields.io/badge/node-18%2B-339933.svg)](frontend/package.json)
@@ -47,7 +47,7 @@ answer holds.
 ## Quick start
 
 ```bash
-git clone https://github.com/lexsecure/lexsecure
+git clone https://github.com/sarthakrohilla01/Lexsecure
 cd lexsecure
 ./start.sh
 ```
