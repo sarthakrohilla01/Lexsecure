@@ -1,0 +1,6 @@
+WITNESS DEPOSITION STATEMENT (Under Section 180 BNSS)
+Witness Name: Mr. Alok Tandon (CISO)
+Deposition on Oath:
+At 02:14 AM on 18 August 2026, abnormal API token anomalies were detected across the cloud gateway.
+Emergency credential revocation was initiated at 02:35 AM.
+Perimeter firewall logs transferred to CFSL.

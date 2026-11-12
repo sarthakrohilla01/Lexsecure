@@ -1,0 +1,113 @@
+services:
+
+  db:
+
+    image: postgres:16-alpine
+
+    restart: unless-stopped
+
+    environment:
+
+      POSTGRES_DB: lexsecure
+
+      POSTGRES_USER: lexsecure
+
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-lexsecure-change-me}
+
+    volumes:
+
+      - lexsecure_pgdata:/var/lib/postgresql/data
+
+    healthcheck:
+
+      test: ["CMD-SHELL", "pg_isready -U lexsecure -d lexsecure"]
+
+      interval: 5s
+
+      timeout: 5s
+
+      retries: 10
+
+    ports:
+
+      - "5432:5432"
+
+
+
+  frontend:
+
+    build:
+
+      context: ./frontend
+
+      dockerfile: Dockerfile
+
+    ports:
+
+      - "80:80"
+
+    depends_on:
+
+      backend:
+
+        condition: service_healthy
+
+
+
+  backend:
+
+    build:
+
+      context: ./backend
+
+      dockerfile: Dockerfile
+
+    ports:
+
+      - "8000:8000"
+
+    environment:
+
+      ENVIRONMENT: production
+
+      DATABASE_URL: postgresql+psycopg://lexsecure:${POSTGRES_PASSWORD:-lexsecure-change-me}@db:5432/lexsecure
+
+      JWT_SECRET_KEY: ${JWT_SECRET_KEY:-docker-demo-jwt-secret-please-override-884422}
+
+      DOCUMENT_ENCRYPTION_KEY: ${DOCUMENT_ENCRYPTION_KEY:-7f3b9c1d5e8a04f26b9d3c7e1a5f8024b6d9e0c35a7f2814d9e6b0a3c5d7f19b}
+
+      STORAGE_TYPE: vault
+
+      LOCAL_STORAGE_VAULT_DIR: /app/storage/vault
+
+      INTEGRITY_CHECK_INTERVAL_SECONDS: "300"
+
+    depends_on:
+
+      db:
+
+        condition: service_healthy
+
+    volumes:
+
+      - lexsecure_storage:/app/storage/vault
+
+    healthcheck:
+
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/health', timeout=3)"]
+
+      interval: 10s
+
+      timeout: 5s
+
+      retries: 5
+
+      start_period: 15s
+
+
+
+volumes:
+
+  lexsecure_pgdata:
+
+  lexsecure_storage:

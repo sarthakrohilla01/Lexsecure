@@ -1,0 +1,91 @@
+name: Bug report
+description: Something in LEXSECURE does not behave as it should
+labels: ["bug", "needs triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to report this. Please fill in what you can —
+        a partial report is still useful.
+
+        **If this is a security vulnerability, do not use this form.**
+        Follow [SECURITY.md](../SECURITY.md) instead.
+
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened
+      description: What you expected, and what actually happened.
+      placeholder: I expected the integrity check to pass, but it reported a hash mismatch.
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      description: Numbered, from a clean start.
+      placeholder: |
+        1. Sign in as demo.investigator@lexsecure.local
+        2. Open Documents
+        3. Click Verify Document Integrity
+    validations:
+      required: true
+
+  - type: input
+    id: version
+    attributes:
+      label: Version or commit
+      placeholder: v2.0.0, or the commit SHA
+    validations:
+      required: true
+
+  - type: dropdown
+    id: surface
+    attributes:
+      label: Where did this happen?
+      options:
+        - Login / MFA
+        - Dashboard
+        - Cases
+        - Documents
+        - Document detail
+        - AI Search
+        - AI Assistant
+        - Integrity Ledger
+        - Audit Trail
+        - Administration
+        - Leak Investigator
+        - Guide
+        - Backend API only
+        - Deployment / Docker
+    validations:
+      required: true
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Logs or error output
+      description: From the browser console or `backend/uvicorn.log`. Remove anything sensitive.
+      render: shell
+    validations:
+      required: false
+
+  - type: input
+    id: env
+    attributes:
+      label: Environment
+      description: OS, Python and Node versions, PostgreSQL version.
+      placeholder: macOS 15, Python 3.13, Node 20, PostgreSQL 16
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Before submitting
+      options:
+        - label: I searched existing issues for this
+          required: true
+        - label: I did not include any secrets, API keys or real case data
+          required: true

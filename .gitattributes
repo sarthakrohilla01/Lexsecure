@@ -1,0 +1,47 @@
+# Normalise line endings
+* text=auto eol=lf
+
+*.py    text eol=lf diff=python
+*.ts    text eol=lf diff=typescript
+*.tsx   text eol=lf diff=typescript
+*.js    text eol=lf diff=javascript
+*.jsx   text eol=lf diff=javascript
+*.json  text eol=lf
+*.yml   text eol=lf
+*.yaml  text eol=lf
+*.md    text eol=lf
+*.sh    text eol=lf
+*.css   text eol=lf
+*.html  text eol=lf
+*.conf  text eol=lf
+*.txt   text eol=lf
+
+# Keep binary files intact
+*.png   binary
+*.jpg   binary
+*.jpeg  binary
+*.gif   binary
+*.ico   binary
+*.pdf   binary
+*.db    binary
+*.sqlite binary
+*.enc   binary
+*.pyc   binary
+
+# Lock files are generated — collapse them in diffs
+package-lock.json linguist-generated=true -diff
+frontend/package-lock.json linguist-generated=true -diff
+
+# Screenshots are captured, not authored
+frontend/public/docs/*.png linguist-generated=true
+
+# Vendor and generated content
+backend/venv/ linguist-vendored
+frontend/node_modules/ linguist-vendored
+frontend/dist/ linguist-generated
+backend/.pgdata/ linguist-vendored
+__pycache__/ linguist-generated
+
+# Ignore files for GitHub's language stats
+docs/* linguist-documentation
+*.md linguist-documentation

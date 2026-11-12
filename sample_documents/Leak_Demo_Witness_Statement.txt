@@ -1,0 +1,38 @@
+WITNESS STATEMENT — SYNTHETIC DEMO DATA (NOT REAL EVIDENCE)
+===========================================================
+
+Case ID     : CASE-2026-001
+Filed Under : FIR No. 042/2026
+Date        : 2026-09-14
+Witness     : Mr. A. Verma (Name changed for demo)
+
+STATEMENT OF MR. A. VERMA
+
+1. On the night of 12th September 2026, at approximately 22:40 hours,
+   I received three consecutive One-Time-Password messages on my registered
+   mobile number, none of which I had requested.
+
+2. Within ten minutes, my net-banking session showed two unauthorized
+   transfers — Rs. 45,000 to an unknown UPI handle and Rs. 18,500 to a
+   recently created wallet account.
+
+3. When I contacted my bank's helpline, the agent informed me that a SIM
+   swap had been registered against my number earlier that evening from a
+   different telecom circle.
+
+4. I immediately filed a complaint with the Cyber Crime cell and was
+   directed to preserve the SMS logs and the transaction acknowledgements.
+
+5. The screenshots I provided to the investigation officer contain the
+   transaction reference numbers, timestamps, and the UPI handle used by
+   the accused.
+
+6. I hereby declare that the contents of this statement are true to the
+   best of my knowledge and belief.
+
+Signed,
+A. Verma
+(Thumb impression on record)
+
+--- END OF STATEMENT ---
+* LexSecure synthetic demo document — contains no real personal data.

@@ -1,0 +1,7 @@
+FIRST INFORMATION REPORT (Under Section 154 Cr.P.C. / Section 173 BNSS)
+Police Station: Cyber Crime Division, Special Cell, New Delhi
+FIR Number: 042/2026 | Date: 2026-08-20
+Complainant: Axis Digital Payments Risk Monitoring Group
+Acts and Sections: Section 66C, 66D IT Act 2000; Section 318, 319 BNS 2023.
+Summary: Unauthorized malware banking trojan intrusion and automated mule fund routing.
+Investigating Officer: Inspector Rajesh Kumar (NCRB-INV-4091)

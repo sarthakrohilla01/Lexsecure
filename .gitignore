@@ -1,0 +1,43 @@
+# OS
+.DS_Store
+
+# Python
+__pycache__/
+*.pyc
+backend/venv/
+backend/.pytest_cache/
+*.egg-info/
+
+# Node
+frontend/node_modules/
+frontend/dist/
+*.tsbuildinfo
+
+# Editors
+.vscode/
+.idea/
+
+# Secrets & local state — never commit
+.env
+.env.local
+.env.*.local
+
+# Local databases & encrypted document vault
+lexsecure.db
+*.db
+*.db-journal
+storage/vault/
+backend/data/
+
+# Gemini/NaraRouter model allowlist & remembered working model
+backend/.*_active_model
+
+# Local runtime state
+.start.pid
+start.log
+*.log
+
+# Local PostgreSQL cluster (bundled Postgres.app)
+backend/.pgdata/
+backend/mfa_enrollment.html
+backend/temp_account.html

@@ -1,0 +1,59 @@
+name: Feature request
+description: Suggest a capability or improvement
+labels: ["enhancement", "needs triage"]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: What problem would this solve?
+      description: Describe the situation, not the solution.
+      placeholder: >
+        An investigator cannot tell which of a document's versions was cited in a
+        court filing without opening each one.
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed change
+      description: What would you like to happen?
+    validations:
+      required: true
+
+  - type: dropdown
+    id: area
+    attributes:
+      label: Which part of the system?
+      options:
+        - Authentication / MFA
+        - Cases
+        - Documents
+        - AI Search
+        - AI Assistant
+        - Integrity Ledger
+        - Audit Trail
+        - Administration
+        - Leak Investigator
+        - Guide / documentation
+        - Deployment
+        - Something else
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives you considered
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Before submitting
+      options:
+        - label: I searched existing issues for this
+          required: true
+        - label: This is a feature request, not a security vulnerability
+          required: true

@@ -1,0 +1,7 @@
+CENTRAL FORENSIC SCIENCE LABORATORY (CFSL) - CYBER FORENSICS REPORT
+Forensic Case File: CFSL/CYBER/2026/089 | Reference: FIR 042/2026
+Examining Expert: Dr. Ananya Sharma, Senior Forensic Scientist
+1. Evidence Received: Exhibit Q-1 Western Digital 2TB NVMe SSD; Exhibit Q-2 OnePlus 12 Smartphone.
+2. Hash Verification: Physical Image SHA-256: 3919307f4dbd42b109e25bb...
+3. Findings: Active Gh0stRAT Trojan payload identified. Telegram mule communications recovered.
+4. Cryptographic conclusion: Hardware devices conclusively linked to malicious SIM-swap routing.
