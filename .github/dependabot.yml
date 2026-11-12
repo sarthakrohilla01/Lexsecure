@@ -8,6 +8,10 @@ updates:
     labels:
       - dependencies
       - python
+    groups:
+      python-dependencies:
+        patterns:
+          - "*"
 
   - package-ecosystem: npm
     directory: /frontend
@@ -17,11 +21,34 @@ updates:
     labels:
       - dependencies
       - javascript
+    groups:
+      frontend-dependencies:
+        patterns:
+          - "*"
+    ignore:
+      # The Vite 5 -> 6+ and Tailwind 3 -> 4 migrations change the build
+      # pipeline and the utility class names. They need a deliberate change,
+      # not an automated bump.
+      - dependency-name: "vite"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "tailwindcss"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "react"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "react-dom"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "react-router-dom"
+        update-types: ["version-update:semver-major"]
 
   - package-ecosystem: github-actions
     directory: /
     schedule:
       interval: monthly
+    open-pull-requests-limit: 5
     labels:
       - dependencies
       - ci
+    groups:
+      github-actions:
+        patterns:
+          - "*"
