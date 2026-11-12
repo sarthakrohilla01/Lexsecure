@@ -12,6 +12,14 @@ updates:
       python-dependencies:
         patterns:
           - "*"
+    ignore:
+      # numpy 2.5 requires Python >= 3.12, but the backend still supports
+      # 3.11. Dependabot rewrites the floor to the newest release, which
+      # makes the dependency uninstallable on 3.11.
+      - dependency-name: "numpy"
+        update-types:
+          - "version-update:semver-minor"
+          - "version-update:semver-major"
 
   - package-ecosystem: npm
     directory: /frontend
@@ -27,11 +35,18 @@ updates:
           - "*"
     ignore:
       # The Vite 5 -> 6+ and Tailwind 3 -> 4 migrations change the build
-      # pipeline and the utility class names. They need a deliberate change,
-      # not an automated bump.
+      # pipeline and the utility class names. TypeScript 7 and lucide-react 1
+      # carry breaking API changes. All need a deliberate change, not an
+      # automated bump.
       - dependency-name: "vite"
         update-types: ["version-update:semver-major"]
+      - dependency-name: "@vitejs/plugin-react"
+        update-types: ["version-update:semver-major"]
       - dependency-name: "tailwindcss"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "typescript"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "lucide-react"
         update-types: ["version-update:semver-major"]
       - dependency-name: "react"
         update-types: ["version-update:semver-major"]
