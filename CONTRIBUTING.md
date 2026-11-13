@@ -56,6 +56,21 @@ cd backend && venv/bin/python seed.py && venv/bin/python scripts/create_demo_acc
 git checkout -b feature/short-descriptive-name
 ```
 
+`main` is a protected branch, so nothing lands there directly. Push your
+branch and open a pull request — CI has to pass before it can merge:
+
+| Rule | What it means |
+|---|---|
+| Pull request required | Direct pushes to `main` are refused, including by admins |
+| CI must pass | Backend tests on Python 3.11 and 3.13, the frontend type-check and build, and the licence check |
+| Branch must be up to date | Merge `main` into your branch first if CI is unhappy with an outdated base |
+| Linear history | Merge with **Squash and merge** — no merge commits |
+| No force pushes, no deletion | The history cannot be rewritten or the branch removed |
+| Conversations resolved | Close out the review threads before merging |
+
+No approving review is required, so a solo maintainer can merge their own
+pull request once CI is green.
+
 ### 3. Make the change
 
 Keep it focused — one concern per pull request. Match the surrounding style:
