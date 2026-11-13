@@ -21,7 +21,7 @@ _cache_lock = threading.Lock()
 
 
 def _cache_key(space: str, text: str) -> str:
-    digest = hashlib.sha1(text.encode("utf-8"), usedforsecurity=False).hexdigest()
+    digest = hashlib.sha1(text.encode("utf-8"), usedforsecurity=False).hexdigest()  # nosec - cache key, not a security digest
     return f"{space}:{digest}"
 
 
@@ -58,7 +58,7 @@ def local_text_embedding(text: str) -> List[float]:
 
     vec = np.zeros(EMBEDDING_DIM, dtype=np.float32)
     for i, word in enumerate(words):
-        h = int(hashlib.md5(word.encode("utf-8"), usedforsecurity=False).hexdigest(), 16)
+        h = int(hashlib.md5(word.encode("utf-8"), usedforsecurity=False).hexdigest(), 16)  # nosec - bucket selector, not a security digest
         idx1 = h % EMBEDDING_DIM
         idx2 = (h >> 7) % EMBEDDING_DIM
         sign = 1.0 if (h & 1) else -1.0

@@ -49,7 +49,7 @@ def extract_text_from_file(file_bytes: bytes, filename: str, mime_type: str) -> 
             text_content = file_bytes.decode("utf-8", errors="ignore")
             pages = 1
 
-    except Exception as e:
+    except Exception:
         try:
             decoded = file_bytes.decode("utf-8", errors="strict")
         except Exception:
@@ -59,7 +59,7 @@ def extract_text_from_file(file_bytes: bytes, filename: str, mime_type: str) -> 
             text_content = decoded
             ocr_applied = True
         else:
-            text_content = f"Error during automated text extraction: {str(e)}"
+            text_content = "Automated text extraction failed for this file."
         pages = 1
 
     return text_content.strip(), pages, ocr_applied

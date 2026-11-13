@@ -25,11 +25,11 @@ def verify_version_integrity(version_id: int, db: Session, record_audit: bool = 
 
     try:
         raw_storage_data = storage_service.get_file(version.object_key)
-    except Exception as e:
+    except Exception:
         return {
             "status": "TAMPERING_DETECTED",
             "is_valid": False,
-            "error": f"Object storage retrieval failed: {str(e)}",
+            "error": "The stored payload could not be retrieved from the vault.",
             "version_number": version.version_number
         }
 
