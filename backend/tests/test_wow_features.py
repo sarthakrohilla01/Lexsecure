@@ -1,5 +1,4 @@
 """Wow-factor features: zero-width leak tracker + two-man rule."""
-import io
 import os
 import sys
 import tempfile
@@ -27,7 +26,7 @@ from app.utils.time import utcnow
 
 
 def make_db():
-    tmp = tempfile.mktemp(suffix=".db")
+    tmp = tempfile.mkstemp(suffix=".db")[1]
     engine = create_engine(f"sqlite:///{tmp}", connect_args={"check_same_thread": False})
     Base.metadata.create_all(bind=engine)
     return sessionmaker(bind=engine)()

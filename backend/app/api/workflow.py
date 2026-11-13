@@ -6,8 +6,7 @@ from sqlalchemy.orm import Session
 
 from app.database.session import get_db
 from app.models.document import Document, DocumentVersion
-from app.models.workflow import WorkflowTask, DocumentComment
-from app.models.case import Case, CaseAssignment
+from app.models.workflow import DocumentComment
 from app.models.user import User, UserRole
 from app.schemas.workflow import WorkflowActionRequest, CommentCreate, CommentResponse
 from app.security.abac import (

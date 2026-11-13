@@ -1,11 +1,9 @@
 """Reports & Court Submission Package API"""
 
-from typing import Dict, Any
-from fastapi import APIRouter, Depends, HTTPException, Request
+from fastapi import APIRouter, Depends, Request
 from sqlalchemy.orm import Session
 
 from app.database.session import get_db
-from app.models.case import Case
 from app.models.document import Document, DocumentVersion
 from app.models.signature import DigitalSignature
 from app.models.ledger import LedgerBlock

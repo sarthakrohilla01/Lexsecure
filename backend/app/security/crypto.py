@@ -12,7 +12,7 @@ def get_encryption_key() -> bytes:
         raw_key = bytes.fromhex(key_hex)
         if len(raw_key) == 32:
             return raw_key
-    except Exception:
+    except ValueError:
         pass
     import hashlib
     import logging
@@ -28,10 +28,7 @@ def encrypt_document_bytes(plaintext: bytes) -> Tuple[bytes, str, str]:
     aesgcm = AESGCM(key)
     iv = os.urandom(12)
     encrypted_payload = aesgcm.encrypt(iv, plaintext, None)
-    
-    ciphertext = encrypted_payload[:-16]
     tag = encrypted_payload[-16:]
-    
     return encrypted_payload, iv.hex(), tag.hex()
 
 def decrypt_document_bytes(encrypted_payload: bytes, iv_hex: str) -> bytes:

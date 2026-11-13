@@ -1,13 +1,11 @@
 """Document ingestion pipeline: scan, extract, encrypt, sign, ledger, index."""
 
-import os
 import uuid
 from typing import Dict, Any, Optional
 from sqlalchemy.orm import Session
-from fastapi import HTTPException, UploadFile
+from fastapi import HTTPException
 
 from app.models.user import User
-from app.models.case import Case
 from app.models.document import Document, DocumentVersion, DocumentMetadata
 from app.models.signature import DigitalSignature
 from app.storage import get_storage_service

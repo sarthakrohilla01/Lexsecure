@@ -93,7 +93,9 @@ def main() -> int:
         dl = client.get(f"/documents/{doc_id}/download", headers=inv_headers)
         must(dl, "Download")
         watermarked = dl.content
-        if watermarked == open(SAMPLE, "rb").read():
+        with open(SAMPLE, "rb") as handle:
+            original = handle.read()
+        if watermarked == original:
             print("[✗] Download was NOT watermarked — is this a .txt file?")
             return 1
         print(f"[2/6] Downloaded {len(watermarked)} bytes — "

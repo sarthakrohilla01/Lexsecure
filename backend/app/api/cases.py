@@ -7,7 +7,7 @@ from app.database.session import get_db
 from app.models.case import Case, CaseAssignment
 from app.models.document import Document, DocumentVersion
 from app.models.user import User, UserRole
-from app.schemas.case import CaseCreate, CaseSummaryResponse, CaseDetailResponse, CaseOfficerAssignment
+from app.schemas.case import CaseCreate, CaseSummaryResponse, CaseDetailResponse
 from app.schemas.document import DocumentSummaryDTO
 from app.security.abac import get_current_user, verify_case_access, get_authorized_case_ids
 from app.audit.logger import record_audit_event

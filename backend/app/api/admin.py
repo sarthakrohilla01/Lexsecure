@@ -1,25 +1,22 @@
 """Administration & System Health API"""
 
-from typing import List, Dict, Any
-from fastapi import APIRouter, Depends, HTTPException
+from typing import List
+from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 
 from app.database.session import get_db
 from app.config import settings
-from app.models.user import User, UserRole, Department
+from app.models.user import User, UserRole
 from app.models.case import Case
 from app.models.document import Document, DocumentVersion
 from app.models.ledger import LedgerBlock
 from app.models.audit import AuditLog
 from app.schemas.auth import UserResponse
 from app.security.abac import get_current_user, require_roles
-from app.security.jwt import hash_password
-from app.security.pki import generate_key_pair
 from app.storage import get_storage_service
 from app.blockchain.ledger_service import verify_ledger_chain_integrity
 from app.services.malware import scanner_available
 from app.services.integrity_monitor import monitor_status
-from app.audit.logger import record_audit_event
 
 router = APIRouter(prefix="/admin", tags=["System Administration"])
 
@@ -44,7 +41,7 @@ def get_system_health(
         db_status = "DEGRADED"
 
     try:
-        storage = get_storage_service()
+        get_storage_service()
         storage_status = "ONLINE"
     except Exception:
         storage_status = "DEGRADED"
@@ -56,7 +53,7 @@ def get_system_health(
     total_docs = db.query(Document).count()
     total_blocks = db.query(LedgerBlock).count()
     total_audits = db.query(AuditLog).count()
-    tampered_count = db.query(DocumentVersion).filter(DocumentVersion.is_tampered == True).count()
+    tampered_count = db.query(DocumentVersion).filter(DocumentVersion.is_tampered.is_(True)).count()
 
     return {
         "overall_status": "ONLINE" if tampered_count == 0 else "SECURITY_ALERT",

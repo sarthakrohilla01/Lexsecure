@@ -1,6 +1,6 @@
 
 import re
-from typing import Dict, Any, List, Optional
+from typing import Dict, Any, Optional
 from sqlalchemy.orm import Session
 from app.models.user import User
 from app.ai.vector_store import search_authorized_chunks
@@ -31,7 +31,7 @@ def _normalize(text: str) -> str:
     return t
 
 def _handle_conversational(question: str, user: User) -> Optional[Dict[str, Any]]:
-   
+
     q = _normalize(question)
     first_name = (user.full_name or "Officer").split()[0]
 
@@ -75,13 +75,13 @@ def _handle_conversational(question: str, user: User) -> Optional[Dict[str, Any]
     if q in _IDENTITY:
         return {
             "answer": (
-                f"I am the **LexSecure Investigative Assistant**, a retrieval-augmented "
-                f"AI operating strictly inside this agency's evidence repository.\n\n"
-                f"- I answer **only** from documents you are authorized to view (ABAC-enforced).\n"
-                f"- Every factual claim carries **source citations** (document + version).\n"
-                f"- I cannot access the internet or any data outside this system.\n\n"
-                f"Ask me to summarize evidence, recall testimony, explain charges, or "
-                f"correlate exhibits for any case you are assigned to."
+                "I am the **LexSecure Investigative Assistant**, a retrieval-augmented "
+                "AI operating strictly inside this agency's evidence repository.\n\n"
+                "- I answer **only** from documents you are authorized to view (ABAC-enforced).\n"
+                "- Every factual claim carries **source citations** (document + version).\n"
+                "- I cannot access the internet or any data outside this system.\n\n"
+                "Ask me to summarize evidence, recall testimony, explain charges, or "
+                "correlate exhibits for any case you are assigned to."
             ),
             "sources": [],
             "status": "SUCCESS",
@@ -184,10 +184,8 @@ def generate_rag_response(
         }
 
     llm_error = llm_adapter.llm_last_error()
-    q_lower = question.lower()
 
     lead_source = sources[0]
-    first_passage = chunks[0]["content"]
 
     query_terms = {
         w.lower().strip(".,;:()[]{}\"'") for w in question.split() if len(w) > 3

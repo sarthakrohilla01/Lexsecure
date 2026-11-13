@@ -6,7 +6,7 @@ import sys
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from app.database.session import SessionLocal
-from app.models.case import Case, CaseAssignment
+from app.models.case import CaseAssignment
 from app.models.user import Department, User, UserRole
 from app.security.crypto import encrypt_secret
 from app.security.jwt import hash_password

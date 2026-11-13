@@ -2,14 +2,13 @@
 
 import io
 from typing import List, Optional
-from fastapi import APIRouter, Depends, HTTPException, UploadFile, File, Form, Request, Response
+from fastapi import APIRouter, Depends, HTTPException, UploadFile, File, Form, Request
 from fastapi.responses import StreamingResponse
 from sqlalchemy.orm import Session
 
 from app.database.session import get_db
-from app.models.document import Document, DocumentVersion, DocumentMetadata
+from app.models.document import Document, DocumentVersion
 from app.models.signature import DigitalSignature
-from app.models.case import Case
 from app.models.user import User, UserRole
 from app.schemas.document import DocumentSummaryDTO, DocumentDetailDTO, DocumentVersionDTO, DigitalSignatureDTO, DocumentMetadataDTO, SignRequest
 from app.security.abac import get_current_user, verify_case_access, verify_document_access, get_authorized_case_ids
@@ -497,8 +496,8 @@ def download_document(
     storage_service = get_storage_service()
     try:
         encrypted_bytes = storage_service.get_file(doc_ver.object_key)
-    except FileNotFoundError:
-        raise HTTPException(status_code=404, detail="Stored evidence payload not found in vault.")
+    except FileNotFoundError as exc:
+        raise HTTPException(status_code=404, detail="Stored evidence payload not found in vault.") from exc
 
     if doc_ver.is_tampered:
         raise HTTPException(
@@ -509,12 +508,12 @@ def download_document(
 
     try:
         decrypted_bytes = decrypt_document_bytes(encrypted_bytes, doc_ver.encryption_iv)
-    except Exception:
+    except Exception as exc:
         raise HTTPException(
             status_code=409,
             detail="Decryption failed: stored payload does not match its cryptographic seal. "
                    "The evidence may have been altered outside the system."
-        )
+        ) from exc
 
     watermarked = False
     download_bytes = decrypted_bytes

@@ -1,21 +1,22 @@
 """Integrity & Tamper Detection API"""
 
-from typing import List, Dict, Any
-from fastapi import APIRouter, Depends, HTTPException, Request
+from fastapi import APIRouter, Depends, File, HTTPException, Request, UploadFile
 from sqlalchemy.orm import Session
 
+from app.audit.logger import record_audit_event
+from app.blockchain.ledger_service import verify_ledger_chain_integrity
 from app.database.session import get_db
+from app.models.document import DocumentVersion
 from app.models.ledger import LedgerBlock
-from app.models.document import DocumentVersion, Document
-from app.models.user import User
+from app.models.user import User, UserRole
 from app.schemas.document import IntegrityReportDTO
 from app.security.abac import get_current_user, verify_document_access, get_authorized_case_ids
+from app.services.steganography import extract_watermark_bytes
 from app.services.tamper_service import (
     verify_version_integrity,
     run_integrity_drill,
     restore_document_version
 )
-from app.blockchain.ledger_service import verify_ledger_chain_integrity
 
 router = APIRouter(prefix="/integrity", tags=["Integrity & Blockchain"])
 
@@ -142,11 +143,6 @@ def verify_blockchain_chain(
 ):
     """Cryptographically verifies the continuity and block hashes of the entire ledger chain."""
     return verify_ledger_chain_integrity(db)
-
-from fastapi import UploadFile, File
-from app.models.user import UserRole
-from app.services.steganography import extract_watermark_bytes
-from app.audit.logger import record_audit_event
 
 @router.post("/extract-watermark")
 async def extract_watermark_endpoint(

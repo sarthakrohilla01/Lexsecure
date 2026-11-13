@@ -105,7 +105,7 @@ def extract_watermark_bytes(watermarked_bytes: bytes) -> dict:
             corrupted += 1
             break
         seq = text[start + len(START_MARKER):end]
-        if seq and all(ch == BIT_0 or ch == BIT_1 for ch in seq):
+        if seq and all(ch in (BIT_0, BIT_1) for ch in seq):
             try:
                 found.append(_decode_frame(''.join(
                     '1' if ch == BIT_1 else '0' for ch in seq)))

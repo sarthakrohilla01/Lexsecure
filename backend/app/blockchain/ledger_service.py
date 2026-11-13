@@ -2,7 +2,7 @@
 
 import hashlib
 import threading
-from typing import Dict, Any, List, Optional
+from typing import Dict, Any, Optional
 from sqlalchemy.orm import Session
 from app.models.ledger import LedgerBlock
 from app.blockchain.fabric_adapter import LocalLedgerAdapter

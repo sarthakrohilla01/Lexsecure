@@ -4,7 +4,7 @@ import csv
 import hashlib
 import io
 import json
-from typing import List, Optional
+from typing import Optional
 from fastapi import APIRouter, Depends, HTTPException, Query
 from fastapi.responses import Response
 from sqlalchemy.orm import Session
@@ -24,19 +24,19 @@ _EXPORT_COLUMNS = [
 ]
 
 
-def _serialize(l: AuditLog) -> dict:
+def _serialize(entry: AuditLog) -> dict:
     return {
-        "id": l.id,
-        "timestamp": l.timestamp,
-        "user_id": l.user_id,
-        "user_email": l.user_email,
-        "user_role": l.user_role,
-        "ip_address": l.ip_address,
-        "action": l.action,
-        "target_type": l.target_type,
-        "target_id": l.target_id,
-        "details": l.details,
-        "status": l.status,
+        "id": entry.id,
+        "timestamp": entry.timestamp,
+        "user_id": entry.user_id,
+        "user_email": entry.user_email,
+        "user_role": entry.user_role,
+        "ip_address": entry.ip_address,
+        "action": entry.action,
+        "target_type": entry.target_type,
+        "target_id": entry.target_id,
+        "details": entry.details,
+        "status": entry.status,
     }
 
 
@@ -72,7 +72,7 @@ def list_audit_logs(
         .limit(limit)
         .all()
     )
-    return [_serialize(l) for l in logs]
+    return [_serialize(entry) for entry in logs]
 
 
 @router.get("/export")
@@ -92,7 +92,7 @@ def export_audit_logs(
         .order_by(AuditLog.timestamp.desc())
         .all()
     )
-    rows = [_serialize(l) for l in logs]
+    rows = [_serialize(entry) for entry in logs]
     exported_at = utcnow()
 
     if fmt == "csv":
@@ -179,13 +179,13 @@ def get_document_audit_trail(
 
     return [
         {
-            "id": l.id,
-            "timestamp": l.timestamp,
-            "user_email": l.user_email,
-            "user_role": l.user_role,
-            "action": l.action,
-            "details": l.details,
-            "status": l.status
+            "id": entry.id,
+            "timestamp": entry.timestamp,
+            "user_email": entry.user_email,
+            "user_role": entry.user_role,
+            "action": entry.action,
+            "details": entry.details,
+            "status": entry.status
         }
-        for l in logs
+        for entry in logs
     ]

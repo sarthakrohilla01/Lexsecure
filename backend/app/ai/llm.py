@@ -48,7 +48,7 @@ _REMEMBERED_MODEL_FILE = os.path.join(
 
 def _remembered_model() -> Optional[str]:
     try:
-        with open(_REMEMBERED_MODEL_FILE, "r", encoding="utf-8") as f:
+        with open(_REMEMBERED_MODEL_FILE, encoding="utf-8") as f:
             return f.read().strip() or None
     except Exception:
         return None
@@ -58,8 +58,8 @@ def _remember_model(model: str) -> None:
     try:
         with open(_REMEMBERED_MODEL_FILE, "w", encoding="utf-8") as f:
             f.write(model)
-    except Exception:
-        pass
+    except OSError as exc:
+        logger.debug("Could not persist the active model to %s: %s", _REMEMBERED_MODEL_FILE, exc)
 
 
 def quota_state() -> Optional[Dict[str, Any]]:

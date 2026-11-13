@@ -14,6 +14,9 @@ permission-aware AI assistant — in one deployable stack.*
 [![PostgreSQL](https://img.shields.io/badge/postgresql-16-4169E1.svg)](docker-compose.yml)
 [![FastAPI](https://img.shields.io/badge/api-FastAPI-009688.svg)](backend/app/main.py)
 [![React](https://img.shields.io/badge/ui-React%2018-61DAFB.svg)](frontend/package.json)
+[![CodeQL](https://img.shields.io/badge/code%20scanning-CodeQL-8957e5)](https://github.com/sarthakrohilla01/Lexsecure/security/code-scanning)
+[![Secret%20scanning](https://img.shields.io/badge/secret%20scanning-enabled-8957e5)](https://github.com/sarthakrohilla01/Lexsecure/security/secret-scanning)
+[![last%20commit](https://img.shields.io/github/last-commit/sarthakrohilla01/Lexsecure)](https://github.com/sarthakrohilla01/Lexsecure/commits/main)
 
 </div>
 
@@ -238,6 +241,18 @@ names the provider and model that actually produced the text.
 | Leak tracing | Zero-width steganographic watermark on text downloads |
 | Headers | `nosniff`, `DENY` framing, `no-referrer`, restrictive permissions policy |
 | CORS | Locked to local dev origins, no wildcard |
+
+### Repository-native security
+
+These are enabled on the GitHub repository itself, not just in the application:
+
+| Feature | State |
+|---|---|
+| **CodeQL** | Runs on every push and every pull request, and is a **required** status check — a scan failure blocks the merge |
+| **Secret scanning** | Detects credentials committed to the repository, with **push protection** enabled so they are blocked before they land |
+| **Dependabot** | Tracks the Python and npm dependency trees and opens grouped update pull requests |
+| **Private vulnerability reporting** | Researchers can report a flaw privately through the Security tab instead of a public issue |
+| **Branch protection** | `main` requires a pull request with green CI, squash merging only, no force pushes and no deletion, enforced for administrators too |
 
 Report vulnerabilities privately — see [SECURITY.md](SECURITY.md).
 

@@ -116,25 +116,23 @@ def verify_document_access(
     """ABAC evaluation for Document access. Evaluates: 1. Case-level authorization. 2. Document classification level vs role. 3. Workflow state (Draft documents only viewable by uploader or supervisor)."""
     verify_case_access(user, document.case_id, db, request, action="DOCUMENT_ACCESS")
 
-    if document.classification == "SECRET":
-        if user.role not in [UserRole.ADMINISTRATOR, UserRole.SUPERVISOR]:
-            assignment = db.query(CaseAssignment).filter(
-                CaseAssignment.case_id == document.case_id,
-                CaseAssignment.user_id == user.id,
-                CaseAssignment.assignment_role == "LEAD_INVESTIGATOR"
-            ).first()
-            if not assignment:
-                raise HTTPException(
-                    status_code=status.HTTP_403_FORBIDDEN,
-                    detail="Access Denied: TOP SECRET clearance required for this document."
-                )
-
-    if document.status == "DRAFT":
-        if document.uploaded_by_id != user.id and user.role not in [UserRole.ADMINISTRATOR, UserRole.SUPERVISOR]:
+    if document.classification == "SECRET" and user.role not in [UserRole.ADMINISTRATOR, UserRole.SUPERVISOR]:
+        assignment = db.query(CaseAssignment).filter(
+            CaseAssignment.case_id == document.case_id,
+            CaseAssignment.user_id == user.id,
+            CaseAssignment.assignment_role == "LEAD_INVESTIGATOR"
+        ).first()
+        if not assignment:
             raise HTTPException(
                 status_code=status.HTTP_403_FORBIDDEN,
-                detail="Access Denied: Draft document is restricted to uploader and supervisor."
+                detail="Access Denied: TOP SECRET clearance required for this document."
             )
+
+    if document.status == "DRAFT" and document.uploaded_by_id != user.id and user.role not in [UserRole.ADMINISTRATOR, UserRole.SUPERVISOR]:
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Access Denied: Draft document is restricted to uploader and supervisor."
+        )
 
     return True
 
@@ -142,6 +140,6 @@ def get_authorized_case_ids(user: User, db: Session) -> List[str]:
     """Returns list of case IDs the user is authorized to access."""
     if user.role in [UserRole.ADMINISTRATOR, UserRole.SUPERVISOR]:
         return [c.id for c in db.query(Case.id).all()]
-    
+
     assignments = db.query(CaseAssignment.case_id).filter(CaseAssignment.user_id == user.id).all()
     return [a[0] for a in assignments]

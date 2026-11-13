@@ -13,14 +13,13 @@ from fastapi import HTTPException
 
 from app.database.session import Base
 from app.models.user import User, UserRole
-import app.models.audit  # noqa: register tables
 from app.security.jwt import hash_password
 from app.audit.logger import record_audit_event
 from app.api.audit import export_audit_logs, list_audit_logs
 
 
 def make_db():
-    tmp = tempfile.mktemp(suffix=".db")
+    tmp = tempfile.mkstemp(suffix=".db")[1]
     engine = create_engine(f"sqlite:///{tmp}", connect_args={"check_same_thread": False})
     Base.metadata.create_all(bind=engine)
     return sessionmaker(bind=engine)()
@@ -51,7 +50,7 @@ def test_csv_export_scopes_to_own_events_for_investigator():
 
     resp = export_audit_logs(format="csv", db=db, current_user=inv)
     body = resp.body.decode("utf-8-sig")
-    lines = [l for l in body.splitlines() if l.strip()]
+    lines = [entry for entry in body.splitlines() if entry.strip()]
 
     assert lines[0].startswith("id,timestamp,user_id,user_email,user_role")
     assert "inv@local" in body

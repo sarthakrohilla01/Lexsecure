@@ -32,7 +32,7 @@ class User(Base):
     department = Column(String(255), nullable=False, default=Department.CYBER_CRIME.value)
     hashed_password = Column(String(255), nullable=False)
     badge_number = Column(String(50), nullable=True)
-    
+
     mfa_enabled = Column(Boolean, default=True)
     mfa_secret = Column(String(64), nullable=True)
     mfa_activated_at = Column(DateTime, nullable=True)

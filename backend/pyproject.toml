@@ -1,0 +1,25 @@
+[tool.ruff]
+line-length = 120
+target-version = "py310"
+extend-exclude = ["venv", ".pgdata", "__pycache__"]
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "B", "S", "SIM", "C4", "UP"]
+ignore = [
+  "E501",
+  "B008",
+  "B905",
+  "S101",
+  "S104",
+  "S105",
+  "SIM105",
+  "SIM108",
+  "UP006",
+  "UP035",
+  "UP045",
+]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/*" = ["B011", "S106"]
+"seed.py" = ["S105"]
+"scripts/list_accounts.py" = ["S105"]

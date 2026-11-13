@@ -1,7 +1,7 @@
 """LedgerBlock Model"""
 
 
-from sqlalchemy import Column, Integer, String, Text, DateTime, ForeignKey
+from sqlalchemy import Column, Integer, String, DateTime, ForeignKey
 from sqlalchemy.orm import relationship
 from app.database.session import Base
 from app.utils.time import utcnow

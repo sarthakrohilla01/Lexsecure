@@ -4,12 +4,12 @@ from typing import Dict, Any
 from sqlalchemy.orm import Session
 from fastapi import HTTPException
 
-from app.models.document import DocumentVersion, Document
+from app.models.document import DocumentVersion
 from app.models.signature import DigitalSignature
 from app.models.ledger import LedgerBlock
 from app.models.user import User
 from app.storage import get_storage_service
-from app.security.crypto import decrypt_document_bytes, encrypt_document_bytes
+from app.security.crypto import decrypt_document_bytes
 from app.security.hashing import calculate_sha256
 from app.security.pki import verify_data_signature
 from app.audit.logger import record_audit_event
@@ -22,7 +22,7 @@ def verify_version_integrity(version_id: int, db: Session, record_audit: bool = 
         raise HTTPException(status_code=404, detail="Document version not found")
 
     storage_service = get_storage_service()
-    
+
     try:
         raw_storage_data = storage_service.get_file(version.object_key)
     except Exception as e:
