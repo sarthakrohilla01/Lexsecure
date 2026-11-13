@@ -36,6 +36,12 @@ fi
 
 echo "Key stored in backend/.env"
 echo
+echo "Verifying it against the gateway (key + catalog + live chat)..."
+echo
 
 cd "$ROOT/backend"
-venv/bin/python scripts/check_nara.py --models
+venv/bin/python scripts/check_nara.py
+
+echo
+echo "Restart the backend to pick the new key up:"
+echo "  pkill -f 'uvicorn app.main:app' && ./start.sh"
