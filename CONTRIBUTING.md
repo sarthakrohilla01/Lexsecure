@@ -52,24 +52,23 @@ cd backend && venv/bin/python seed.py && venv/bin/python scripts/create_demo_acc
 
 ### 2. Branch
 
+`main` is the canonical branch. The maintainer pushes straight to it; outside
+contributors work on a branch and open a pull request:
+
 ```bash
 git checkout -b feature/short-descriptive-name
 ```
 
-`main` is a protected branch, so nothing lands there directly. Push your
-branch and open a pull request — CI has to pass before it can merge:
-
 | Rule | What it means |
 |---|---|
-| Pull request required | Direct pushes to `main` are refused, including by admins |
-| CI must pass | Backend tests on Python 3.11 and 3.13, the frontend type-check and build, and the licence check |
-| Branch must be up to date | Merge `main` into your branch first if CI is unhappy with an outdated base |
-| Linear history | Merge with **Squash and merge** — no merge commits |
-| No force pushes, no deletion | The history cannot be rewritten or the branch removed |
-| Conversations resolved | Close out the review threads before merging |
+| CI must pass | Backend tests on Python 3.11 and 3.13, the frontend type-check and build, the licence check, and CodeQL all run on every push |
+| No force pushes | The published history cannot be rewritten |
+| No branch deletion | `main` cannot be removed |
+| Linear history | No merge commits — squash when a pull request lands |
 
-No approving review is required, so a solo maintainer can merge their own
-pull request once CI is green.
+A pull request is not required for the maintainer, and no approving review is
+needed, so a solo project can move at full speed without giving up the safety
+checks.
 
 ### 3. Make the change
 
