@@ -12,7 +12,7 @@ class LocalVaultStorageService(BaseStorageService):
 
     def _resolve_path(self, object_key: str) -> Path:
         sanitized = object_key.replace("\\", "/").lstrip("/")
-        candidate = (self.base_dir / sanitized).resolve()
+        candidate = (self.base_dir / sanitized).resolve()  # nosec - the commonpath check below rejects any escape
         base = self.base_dir.resolve()
         if os.path.commonpath([str(candidate), str(base)]) != str(base):
             raise ValueError(

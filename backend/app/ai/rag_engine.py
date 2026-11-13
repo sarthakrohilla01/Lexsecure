@@ -199,7 +199,7 @@ def generate_rag_response(
         cite = (label + "]") if label.startswith("[") else ""
         text = body or passage
         text = re.sub(r"(?m)^\s*[*\-\u2022]\s+", "", text)
-        text = re.sub(r"\s*\n\s*", " ", text)
+        text = re.sub(r"[ \t]*\n[ \t]*", " ", text)
         return cite, " ".join(text.split())
 
     candidates = []
