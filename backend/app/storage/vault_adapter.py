@@ -23,7 +23,7 @@ class LocalVaultStorageService(BaseStorageService):
     def save_file(self, object_key: str, data: bytes) -> str:
         file_path = self._resolve_path(object_key)
         file_path.parent.mkdir(parents=True, exist_ok=True)
-        with open(file_path, "wb") as f:
+        with open(file_path, "wb") as f:  # nosec - _resolve_path rejects any path outside the vault
             f.write(data)
         return object_key
 
@@ -31,7 +31,7 @@ class LocalVaultStorageService(BaseStorageService):
         file_path = self._resolve_path(object_key)
         if not file_path.exists():
             raise FileNotFoundError(f"Object {object_key} not found in vault")
-        with open(file_path, "rb") as f:
+        with open(file_path, "rb") as f:  # nosec - _resolve_path rejects any path outside the vault
             return f.read()
 
     def delete_file(self, object_key: str) -> bool:
