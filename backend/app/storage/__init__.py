@@ -17,8 +17,12 @@ def get_storage_service() -> BaseStorageService:
             service = MinioStorageService()
             _storage_instance = service
             return _storage_instance
-        except Exception:
-            pass
+        except Exception as exc:
+            import logging
+            logging.getLogger("lexsecure.storage").warning(
+                "MinIO storage is unavailable (%s); falling back to the local encrypted vault.",
+                exc,
+            )
 
     _storage_instance = LocalVaultStorageService()
     return _storage_instance

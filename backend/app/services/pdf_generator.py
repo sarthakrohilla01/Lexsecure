@@ -33,7 +33,7 @@ def build_pdf_bytes(title: str, body: str) -> bytes:
     kids = " ".join(f"{p} 0 R" for p, _ in page_obj_nums)
     objects.append(f"<< /Type /Pages /Kids [{kids}] /Count {len(pages)} >>".encode())
 
-    for (page_num, content_num), stream in zip(page_obj_nums, content_streams):
+    for (_, content_num), stream in zip(page_obj_nums, content_streams):
         objects.append(
             f"<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] "
             f"/Resources << /Font << /F1 {font_num} 0 R >> >> "

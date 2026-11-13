@@ -16,11 +16,11 @@ def extract_text_from_file(file_bytes: bytes, filename: str, mime_type: str) -> 
             reader = pypdf.PdfReader(io.BytesIO(file_bytes))
             pages = len(reader.pages)
             extracted_pages = []
-            for i, page in enumerate(reader.pages):
+            for _, page in enumerate(reader.pages):
                 txt = page.extract_text() or ""
                 if txt.strip():
                     extracted_pages.append(txt)
-            
+
             if extracted_pages:
                 text_content = "\n\n".join(extracted_pages)
             else:

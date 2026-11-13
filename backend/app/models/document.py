@@ -43,7 +43,7 @@ class DocumentVersion(Base):
     change_reason = Column(Text, nullable=True)
     uploaded_by_id = Column(Integer, ForeignKey("users.id"), nullable=False)
     created_at = Column(DateTime, default=utcnow)
-    
+
     is_tampered = Column(Boolean, default=False)
     tampered_hash = Column(String(64), nullable=True)
 

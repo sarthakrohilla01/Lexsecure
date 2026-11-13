@@ -2,7 +2,6 @@
 
 import io
 from minio import Minio
-from minio.error import S3Error
 from app.storage.base import BaseStorageService
 from app.config import settings
 
@@ -21,8 +20,11 @@ class MinioStorageService(BaseStorageService):
         try:
             if not self.client.bucket_exists(self.bucket):
                 self.client.make_bucket(self.bucket)
-        except Exception:
-            pass
+        except Exception as exc:
+            import logging
+            logging.getLogger("lexsecure.storage").warning(
+                "Could not verify or create the MinIO bucket %r: %s", self.bucket, exc
+            )
 
     def save_file(self, object_key: str, data: bytes) -> str:
         stream = io.BytesIO(data)

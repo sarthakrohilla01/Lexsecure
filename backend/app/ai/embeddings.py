@@ -21,7 +21,8 @@ _cache_lock = threading.Lock()
 
 
 def _cache_key(space: str, text: str) -> str:
-    return f"{space}:{hashlib.sha1(text.encode('utf-8')).hexdigest()}"
+    digest = hashlib.sha1(text.encode("utf-8"), usedforsecurity=False).hexdigest()
+    return f"{space}:{digest}"
 
 
 def _cache_get(space: str, text: str) -> Optional[List[float]]:
@@ -57,7 +58,7 @@ def local_text_embedding(text: str) -> List[float]:
 
     vec = np.zeros(EMBEDDING_DIM, dtype=np.float32)
     for i, word in enumerate(words):
-        h = int(hashlib.md5(word.encode("utf-8")).hexdigest(), 16)
+        h = int(hashlib.md5(word.encode("utf-8"), usedforsecurity=False).hexdigest(), 16)
         idx1 = h % EMBEDDING_DIM
         idx2 = (h >> 7) % EMBEDDING_DIM
         sign = 1.0 if (h & 1) else -1.0

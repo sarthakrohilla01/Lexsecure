@@ -115,7 +115,7 @@ def get_pending_requests(
     )
 
     return [_to_dto(r, r.requester.email) for r in reqs]
-    
+
 @router.get("/my-requests", response_model=List[DualAuthResponseDTO])
 def get_my_requests(
     db: Session = Depends(get_db),
@@ -147,7 +147,7 @@ def process_request(
         req.approver_id = current_user.id
         req.unlock_token = str(uuid.uuid4())
         req.expires_at = utcnow() + timedelta(hours=2)
-        
+
         record_audit_event(
             db=db,
             action="DUAL_AUTH_APPROVED",
@@ -157,7 +157,7 @@ def process_request(
     else:
         req.status = "REJECTED"
         req.approver_id = current_user.id
-        
+
         record_audit_event(
             db=db,
             action="DUAL_AUTH_REJECTED",

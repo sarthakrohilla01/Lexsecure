@@ -1,6 +1,6 @@
 """AI Search & Permission-Aware RAG API"""
 
-from typing import List, Dict, Any
+from typing import List, Dict
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 
@@ -19,7 +19,7 @@ router = APIRouter(prefix="/ai", tags=["AI & Vector Search"])
 @router.get("/status")
 def get_ai_status():
     """Reports how the AI features actually operate, so the UI can label deterministic vs LLM-backed mode honestly (no overclaiming)."""
-    from app.ai.embeddings import embedding_space_id, gemini_embedding_space_id
+    from app.ai.embeddings import embedding_space_id
 
     llm_ready = llm_adapter.llm_configured()
     provider = settings.LLM_PROVIDER.strip().lower()

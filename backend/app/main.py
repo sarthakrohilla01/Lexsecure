@@ -1,14 +1,13 @@
 """LEXSECURE - Secure Digital Document Management System"""
 
-from contextlib import asynccontextmanager
+from contextlib import asynccontextmanager, suppress
 import asyncio
 
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import JSONResponse
 
 from app.config import settings
-from app.database.session import Base, engine, SessionLocal
+from app.database.session import SessionLocal
 from app.database.migrations import ensure_schema
 from app.blockchain.ledger_service import ensure_genesis_block
 from app.services.integrity_monitor import integrity_monitor_loop, monitor_status
@@ -41,10 +40,8 @@ async def lifespan(app: FastAPI):
 
     stop_event.set()
     monitor_task.cancel()
-    try:
+    with suppress(asyncio.CancelledError, Exception):
         await monitor_task
-    except (asyncio.CancelledError, Exception):
-        pass
     ws_manager.unbind_loop()
 
 app = FastAPI(

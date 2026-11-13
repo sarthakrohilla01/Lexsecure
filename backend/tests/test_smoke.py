@@ -24,7 +24,7 @@ from app.services.tamper_service import verify_version_integrity
 
 
 def make_db():
-    tmp = tempfile.mktemp(suffix=".db")
+    tmp = tempfile.mkstemp(suffix=".db")[1]
     engine = create_engine(f"sqlite:///{tmp}", connect_args={"check_same_thread": False})
     Base.metadata.create_all(bind=engine)
     return sessionmaker(bind=engine)()
@@ -69,7 +69,6 @@ def test_ocr_fallback_for_text_labeled_pdf():
 def test_sign_unsign_roundtrip_restores_review_status():
     from app.api.documents import sign_document, unsign_document
     from app.schemas.document import SignRequest
-    from app.models.signature import DigitalSignature
     db = make_db()
     ensure_genesis_block(db)
     priv, pub = generate_key_pair()

@@ -85,9 +85,11 @@ def main() -> int:
                     continue
                 if not isinstance(table.c["id"].type, Integer):
                     continue
+                # `name` comes from the constant TABLE_ORDER list above, never
+                # from user input, so the identifier interpolation is safe here.
                 conn.execute(
                     text(
-                        "SELECT setval("
+                        "SELECT setval("  # noqa: S608
                         "pg_get_serial_sequence(:table, 'id'), "
                         "COALESCE((SELECT MAX(id) FROM " + name + "), 1), "
                         "(SELECT COUNT(*) > 0 FROM " + name + "))"

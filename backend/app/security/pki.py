@@ -15,7 +15,7 @@ def generate_key_pair() -> Tuple[str, str]:
         public_exponent=65537,
         key_size=2048
     )
-    
+
     private_pem = private_key.private_bytes(
         encoding=serialization.Encoding.PEM,
         format=serialization.PrivateFormat.PKCS8,
@@ -36,7 +36,7 @@ def sign_data_hash(private_key_pem: str, data_hash: str) -> str:
         private_key_pem.encode("utf-8"),
         password=None
     )
-    
+
     signature = private_key.sign(
         data_hash.encode("utf-8"),
         padding.PSS(

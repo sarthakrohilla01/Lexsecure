@@ -49,6 +49,9 @@ jobs:
       - name: Byte-compile
         run: python -m compileall -q app scripts tests seed.py
 
+      - name: Lint
+        run: ruff check app scripts tests seed.py ../sample_documents
+
       - name: Run test suite
         run: python -m pytest tests/ -q --no-header
 

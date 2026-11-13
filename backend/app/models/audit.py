@@ -1,7 +1,7 @@
 """AuditLog Model"""
 
 
-from sqlalchemy import Column, Integer, String, Text, DateTime, ForeignKey
+from sqlalchemy import Column, Integer, String, Text, DateTime
 from app.database.session import Base
 from app.utils.time import utcnow
 

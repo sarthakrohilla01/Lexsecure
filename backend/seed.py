@@ -9,7 +9,7 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from app.database.session import Base, engine, SessionLocal
 from app.models.user import User, UserRole, Department
 from app.models.case import Case, CaseAssignment
-from app.models.document import Document, DocumentVersion
+from app.models.document import Document
 from app.security.jwt import hash_password
 from app.security.mfa import generate_secret
 from app.security.pki import generate_key_pair
