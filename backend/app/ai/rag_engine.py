@@ -198,7 +198,7 @@ def generate_rag_response(
         label, _, body = passage.partition("]: ")
         cite = (label + "]") if label.startswith("[") else ""
         text = body or passage
-        text = re.sub(r"(?m)^\s*[*\-\u2022]\s+", "", text)
+        text = re.sub(r"(?m)^[ \t]*[*\-\u2022][ \t]+", "", text)
         text = re.sub(r"[ \t]*\n[ \t]*", " ", text)
         return cite, " ".join(text.split())
 
